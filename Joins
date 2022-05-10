@@ -1,1 +1,77 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.28 MySQL Community Server - GPL
 
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use college_database;
+Database changed
+mysql> show tables;
++-------------------------+
+| Tables_college_database |
++-------------------------+
+| Course                  |
+| Student                 |
+| Admission               |
+| Timetable               |
+| Lecturer                |
+| Subject                 |                
++-------------------------+
+6 rows in set (0.12 sec)
+
+mmysql> Select * from course;
++-----------+---------------+-------------+-------------+
+| Course_ID | Name          | Description | Course_Type |
++-----------+---------------+-------------+-------------+
+| C1001     | CSE           | C++ Basics  | Engineering |
+| B1002     | Biotechnology | Genetics    | Engineering |
+| E1003     | ECE           | Electrical  | Engineering |
+| B1004     | BCom          | Management  | Humanities  |
+| M1005     | MBBS          | Anatomy     | Medicine    |
++-----------+---------------+-------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student;
++--------------+---------------+-----------------+------------+--------------------------+
+| Student_Name | Enroll_No     | Student_Contact | DOB        | Student_Address          |
++--------------+---------------+-----------------+------------+--------------------------+
+| Ishwarya     | RA19033010034 | 9840815904      | 08-09-2001 | Appaswamy Splendour, OMR |
+| Sanjana      | RA19033010016 | 9087859343      | 10-04-2002 | Uma Sanjana, Anna Nagar  |
+| Ashwath      | RA19037010067 | 9943393429      | 16-07-2001 | Apartments, Pallavaram   |
+| Darshini     | RA19033010060 | 8925363026      | 04-11-2001 | Hostel, Chengalpet       |
+| Saanvi       | RA19033010025 | 8173915977      | 20-02-2001 | M Block, Kattankulathur  |
++--------------+---------------+-----------------+------------+--------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select *from admission;
++--------------+--------------+-------------+---------------+
+| Student_Name | Admission_No | Enroll_Date | Course_Name   |
++--------------+--------------+-------------+---------------+
+| Ishwarya     | 405644       | 08-03-2019  | CSE           |
+| Sanjana      | 405338       | 04-03-2019  | CSE           |
+| Ashwath      | 405643       | 08-03-2019  | Biotechnology |
+| Dharshini    | 405878       | 16-03-2019  | Medicine      |
+| Saanvi       | 405498       | 06-03-2019  | CSE           |
++--------------+--------------+-------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Lecturer;
++---------------+-------------+------------+----------------------+
+| Lecturer_Name | Lecturer_ID | Contact    | Address              |
++---------------+-------------+------------+----------------------+
+| Ms.Revathi    | 10123       | 9884974854 | Kodambakkam, Chennai |
+| Mrs.Radhika   | 10312       | 7894391458 | Tambaram, Chennai    |
+| Mr.Karthik    | 10415       | 8541934972 | T.Nagar, Chennai     |
+| Ms.Smitha     | 10264       | 6837415027 | Anna Nagar, Chennai  |
+| Mr.Senthil    | 10518       | 9087859343 | Chrompet, Chennai    |
++---------------+-------------+------------+----------------------+
+5 rows in set (0.00 sec)
+
+mysql>
