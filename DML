@@ -1,19 +1,288 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.28 MySQL Community Server - GPL
 
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
 
-/*
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
 
-provide a query which lists each department
-and the number of courses offered by that department
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-The two columns should have headers;
-1) “Department Name”
-2) “# Courses”
+mysql> use college_database
+Database changed
+mysql> desc course:
+    -> desc course;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':
+desc course' at line 1
+mysql> desc course;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Course_ID   | varchar(10) | YES  |     | NULL    |       |
+| Name        | varchar(20) | YES  |     | NULL    |       |
+| Description | varchar(15) | YES  |     | NULL    |       |
+| Course_Type | varchar(15) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.05 sec)
 
-- output should be sorted by “# Courses” in each department (ascending).
+mysql> select * from course
+    -> ;
+Empty set (0.01 sec)
 
-*/
+mysql> insert into course values('CSE','C1001','C++ Fundamentals','Engineering');
+ERROR 1406 (22001): Data too long for column 'Description' at row 1
+mysql> insert into course values('CSE','C1001','C++ Basics','Engineering');
+Query OK, 1 row affected (0.01 sec)
 
-SELECT departmentName 'Department Name', deptid '# Courses'
-FROM department
-         JOIN course
-ORDER BY '# Courses' ASC;
+mysql> insert into course values('Biotechnology','B1002','Genetics','Engineering');
+ERROR 1406 (22001): Data too long for column 'Course_ID' at row 1
+mysql> delete course;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select *from course;
++-----------+-------+-------------+-------------+
+| Course_ID | Name  | Description | Course_Type |
++-----------+-------+-------------+-------------+
+| CSE       | C1001 | C++ Basics  | Engineering |
++-----------+-------+-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> delete from course where course_id='C1001';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from course;
++-----------+-------+-------------+-------------+
+| Course_ID | Name  | Description | Course_Type |
++-----------+-------+-------------+-------------+
+| CSE       | C1001 | C++ Basics  | Engineering |
++-----------+-------+-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> delete from course;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from course;
+Empty set (0.00 sec)
+
+mysql> insert into course values('C1001','CSE','C++ Basics','Engineering');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into course values('B1002','Biotechnology','Genetics','Engineering');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into course values('E1003','ECE','Electrical','Engineering');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into course values('B1004','BCom','Management','Science & Humanities');
+ERROR 1406 (22001): Data too long for column 'Course_Type' at row 1
+mysql> insert into course values('B1004','BCom','Management','Humanities');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into course values('M1005','MBBS','Anatomy','Medicine');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Select * from course;
++-----------+---------------+-------------+-------------+
+| Course_ID | Name          | Description | Course_Type |
++-----------+---------------+-------------+-------------+
+| C1001     | CSE           | C++ Basics  | Engineering |
+| B1002     | Biotechnology | Genetics    | Engineering |
+| E1003     | ECE           | Electrical  | Engineering |
+| B1004     | BCom          | Management  | Humanities  |
+| M1005     | MBBS          | Anatomy     | Medicine    |
++-----------+---------------+-------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> create table Student(Student_Name varchar(10),Enroll.no varchar(15),Student_Contact varchar(15),DOB varchar(10),Student_Address varchar (30));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.no varchar(15),Student_Contact varchar(15),DOB varchar(10),Student_Address varc' at line 1
+mysql> create table Student(Student_Name varchar(10),Enroll_No varchar(15),Student_Contact varchar(15),DOB varchar(10),Student_Address varchar (30));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into student values('Ishwarya','RA19033010034','9840815904','08-09-2001','Appaswamy Splendour, OMR, Chennai');
+ERROR 1406 (22001): Data too long for column 'Student_Address' at row 1
+mysql> insert into student values('Ishwarya','RA19033010034','9840815904','08-09-2001','Appaswamy Splendour, OMR');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('Sanjana','RA19033010016','9087859343','10-04-2002','Uma Sanjana, Anna Nagar');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('Ashwath','RA19037010067','9943393429','16-07-2001','Apartments, Pallavaram');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('Darshini','RA19033010060','8925363026','04-11-2001','Hostel, Chengalpet');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student values('Saanvi','RA19033010025','8173915977','20-02-2001','M Block, Kattankulathur');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc student;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| Student_Name    | varchar(10) | YES  |     | NULL    |       |
+| Enroll_No       | varchar(15) | YES  |     | NULL    |       |
+| Student_Contact | varchar(15) | YES  |     | NULL    |       |
+| DOB             | varchar(10) | YES  |     | NULL    |       |
+| Student_Address | varchar(30) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select * from student;
++--------------+---------------+-----------------+------------+--------------------------+
+| Student_Name | Enroll_No     | Student_Contact | DOB        | Student_Address          |
++--------------+---------------+-----------------+------------+--------------------------+
+| Ishwarya     | RA19033010034 | 9840815904      | 08-09-2001 | Appaswamy Splendour, OMR |
+| Sanjana      | RA19033010016 | 9087859343      | 10-04-2002 | Uma Sanjana, Anna Nagar  |
+| Ashwath      | RA19037010067 | 9943393429      | 16-07-2001 | Apartments, Pallavaram   |
+| Darshini     | RA19033010060 | 8925363026      | 04-11-2001 | Hostel, Chengalpet       |
+| Saanvi       | RA19033010025 | 8173915977      | 20-02-2001 | M Block, Kattankulathur  |
++--------------+---------------+-----------------+------------+--------------------------+
+5 rows in set (0.00 sec)
+
+mysql> create table Admission(Student_Name varchar(10),Admission_No varchar(15), Enroll_Date varchar(10),Course_Name varchar (15));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc Admission;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Student_Name | varchar(10) | YES  |     | NULL    |       |
+| Admission_No | varchar(15) | YES  |     | NULL    |       |
+| Enroll_Date  | varchar(10) | YES  |     | NULL    |       |
+| Course_Name  | varchar(15) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into admission values('Ishwarya','405644','08-03-2019','CSE');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into admission values('Sanjana','405338','04-03-2019','CSE');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into admission values('Ashwath','405643','08-03-2019','Biotechnology');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into admission values('Dharshini','405878','16-03-2019','Medicine');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into admission values('Saanvi','405498','06-03-2019','CSE');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from admission;
++--------------+--------------+-------------+---------------+
+| Student_Name | Admission_No | Enroll_Date | Course_Name   |
++--------------+--------------+-------------+---------------+
+| Ishwarya     | 405644       | 08-03-2019  | CSE           |
+| Sanjana      | 405338       | 04-03-2019  | CSE           |
+| Ashwath      | 405643       | 08-03-2019  | Biotechnology |
+| Dharshini    | 405878       | 16-03-2019  | Medicine      |
+| Saanvi       | 405498       | 06-03-2019  | CSE           |
++--------------+--------------+-------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> create table timetable(Subject varchar(15),Time varchar(10),Day_Order varchar(10));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc timetable;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Subject   | varchar(15) | YES  |     | NULL    |       |
+| Time      | varchar(10) | YES  |     | NULL    |       |
+| Day_Order | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> create table Lecturer(Lecturer_Name varchar(15),Lecturer_ID varchar(15), Contact varchar(15),Address varchar(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc lecturer;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Lecturer_Name | varchar(15) | YES  |     | NULL    |       |
+| Lecturer_ID   | varchar(15) | YES  |     | NULL    |       |
+| Contact       | varchar(15) | YES  |     | NULL    |       |
+| Address       | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into lecturer values('Ms.Revathi','10123','9884974854','Kodambakkam, Chennai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into lecturer values('Mrs.Radhika','10312','7894391458','Tambaram, Chennai');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into lecturer values('Mr.Karthik','10415','8541934972','T.Nagar, Chennai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into lecturer values('Ms.Smitha','10264','6837415027','Anna Nagar, Chennai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into lecturer values('Mr.Senthil','10518','9087859343','Chrompet, Chennai');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Lecturer;
++---------------+-------------+------------+----------------------+
+| Lecturer_Name | Lecturer_ID | Contact    | Address              |
++---------------+-------------+------------+----------------------+
+| Ms.Revathi    | 10123       | 9884974854 | Kodambakkam, Chennai |
+| Mrs.Radhika   | 10312       | 7894391458 | Tambaram, Chennai    |
+| Mr.Karthik    | 10415       | 8541934972 | T.Nagar, Chennai     |
+| Ms.Smitha     | 10264       | 6837415027 | Anna Nagar, Chennai  |
+| Mr.Senthil    | 10518       | 9087859343 | Chrompet, Chennai    |
++---------------+-------------+------------+----------------------+
+5 rows in set (0.00 sec)
+
+mysql> create table Subject(Subject_Name varchar(15), Lecturer_ID varchar(15),Subject_Code varchar(10));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc subject;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Subject_Name | varchar(15) | YES  |     | NULL    |       |
+| Lecturer_ID  | varchar(15) | YES  |     | NULL    |       |
+| Subject_Code | varchar(10) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into subject values('CSE','10518','CS01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from subject;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from subject;
+Empty set (0.00 sec)
+
+mysql> insert into subject values('CSE','10518','CS01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into subject values('Genetics','10264','BT02');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into subject values('ECE','10415','EC03');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into subject values('Economics','10123','SH04');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into subject values('Anatomy','10312','MA05');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from subject;
++--------------+-------------+--------------+
+| Subject_Name | Lecturer_ID | Subject_Code |
++--------------+-------------+--------------+
+| CSE          | 10518       | CS01         |
+| Genetics     | 10264       | BT02         |
+| ECE          | 10415       | EC03         |
+| Economics    | 10123       | SH04         |
+| Anatomy      | 10312       | MA05         |
++--------------+-------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql>
