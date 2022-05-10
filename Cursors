@@ -1,1 +1,40 @@
+REM   Script: PLsql-Explicit Cursor
+REM   PLsql-Explicit Cursor
+
+create table Take_Admission ( Enroll_no varchar(15), DOB varchar(10), Student_Contact number);
+
+insert into Take_Admission values(' RA19033010034','08-09-2001', 9840815904);
+
+insert into Take_Admission values(' RA19033010016','10-04-2002', 9087859343);
+
+insert into Take_Admission values('RA19037010067','16-07-2001', 9943393429);
+
+insert into Take_Admission values('RA19033010060','04-11-2001',8925363026);
+
+insert into Take_Admission values('RA19033010025','20-02-2001',8173915977);
+
+
+desc Take_Admission
+
+
+DECLARE
+Enroll_no Take_Admission.Enroll_no%type; 
+DOB Take_Admission.DOB%type; 
+Student_Contact Take_Admission.Student_Contact%type; 
+ 
+CURSOR Take_Admission is 
+SELECT Enroll_no,DOB,Student_Contact FROM Take_Admission; 
+BEGIN 
+OPEN Take_Admission; 
+LOOP 
+FETCH Take_Admission into Enroll_no,DOB,Student_Contact; 
+EXIT WHEN Take_Admission%notfound; 
+dbms_output.put_line(Enroll_no); 
+dbms_output.put_line(DOB); 
+dbms_output.put_line(Student_Contact); 
+ 
+END LOOP; 
+CLOSE Take_Admission; 
+END; 
+/
 
